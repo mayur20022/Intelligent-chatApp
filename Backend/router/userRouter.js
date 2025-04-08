@@ -2,7 +2,8 @@ import { Router } from "express"
 
 const router = Router() 
 import { body } from "express-validator"
-import { createUsercontroller } from "../controllers/userController.js"
+import { createUsercontroller, loginController, logoutUser, profileController } from "../controllers/userController.js"
+import { authuser } from "../middleware/authUser.js"
 
 
 router.post("/register",
@@ -10,6 +11,18 @@ router.post("/register",
     body("password").isLength({ min: 4 }).withMessage("Password must be at  least 4 characters"),
     createUsercontroller
 )
+
+router.post("/login",
+    body("email").isEmail().withMessage("Email must be a valid email address"),
+    body("password").isLength({ min: 4 }).withMessage("Password must be at  least 4 characters"),
+    loginController
+)
+
+router.get("/profile", authuser, profileController
+)
+router.get("/logout", authuser, logoutUser)
+
+
 
 
 export default router
