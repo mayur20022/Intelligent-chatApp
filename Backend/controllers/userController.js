@@ -14,6 +14,7 @@ export const createUsercontroller = async (req, res) => {
         const user = await createUser(req.body);
         const token = await user.generateJWT(); // Instance method
         res.cookie("token", token); // Fixed
+        delete user._doc.password;
         res.status(201).json({ user, token });
     } catch (error) {
         res.status(400).send(error.message);
@@ -29,10 +30,10 @@ export const loginController = async (req, res) => {
     }
     try {
         const user = await loginUser(req.body)
-        console.log(user, "jgc");
 
         const token = await user.generateJWT();
         res.cookie("token", token);
+        delete user._doc.password;
         res.status(200).json({ user, token });
     } catch (error) {
         res.status(400).send(errors.message);
