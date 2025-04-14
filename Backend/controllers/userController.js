@@ -12,8 +12,9 @@ export const createUsercontroller = async (req, res) => {
 
     try {
         const user = await createUser(req.body);
-        const token = await user.generateJWT(); // Instance method
-        res.cookie("token", token); // Fixed
+        const token = await user.generateJWT();
+        console.log(token);
+        res.cookie("token", token); 
         delete user._doc.password;
         res.status(201).json({ user, token });
     } catch (error) {
