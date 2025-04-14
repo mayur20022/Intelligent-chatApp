@@ -11,6 +11,7 @@ export const createUser = async ({ email, password }) => {
         password: hashedPass
     });
 
+
     return user
 }
 

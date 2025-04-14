@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import userRouter from './router/userRouter.js'
 import cookieParser from "cookie-parser"
 import cors from "cors"
+import projectRouter from './router/projectRouter.js'
 DBconnect()
 
 
@@ -19,11 +20,8 @@ app.use(cookieParser())
 app.get("/", (req, res) => {
     res.send("Hello World!")
 })
-app.use("/users",userRouter)
-
-
-
-
+app.use("/users", userRouter)
+app.use("/projects", projectRouter)
 
 
 

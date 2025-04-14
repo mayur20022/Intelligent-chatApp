@@ -1,4 +1,4 @@
-// import userModel from "../models/userModel.js";
+import userModel from "../models/userModel.js";
 import redisClient from "../services/redisService.js";
 import { createUser, loginUser } from "../services/userServie.js";
 import { validationResult } from "express-validator";
@@ -27,7 +27,7 @@ export const loginController = async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ error: errors.array() });
+        return res.status(400).json({ error: errors });
     }
     try {
         const user = await loginUser(req.body)

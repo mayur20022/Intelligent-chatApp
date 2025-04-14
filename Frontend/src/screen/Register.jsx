@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import {  Link, useNavigate } from 'react-router-dom';
 import axios from '../config/axios';
+import { UserContext } from '../context/UserContext';
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
+   const {setUser}= useContext(UserContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,14 +17,14 @@ const Register = () => {
             password, 
         })
             .then((res) => {
-                console.log(res.data);
+                console.log('Registration Successful');
+                localStorage.setItem("token", res.data.token)
+                setUser(res.data.user);
                 navigate('/')
             })
             .catch((err) => {
                 console.log(err.response.data);
             })
-
-        console.log('Email:', email, 'Password:', password);
     };
 
     return (
