@@ -30,3 +30,10 @@ export const loginUser = async ({ email, password }) => {
     
     return user;
 }
+
+export const Allusers = async ({userId}) => {
+    const users = await userModel.find({
+        _id: { $ne: userId }
+    })    
+    return users;
+ }

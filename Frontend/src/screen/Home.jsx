@@ -6,21 +6,21 @@ import axios from '../config/axios'
 
 export default function Home() {
 
-  // const { user, setUser } = useContext(UserContext)
   const [text, setText] = React.useState([])
   const [projectName, setrPojectName] = React.useState([])
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('/projects/getall')
-        setrPojectName(response.data)
-      } catch (error) {
-        console.error('Error fetching user:', error)
-      }
-    }
-    fetchUser()
-  }, [text])
+  useEffect(() =>{
+        const fetchUser = async () => {
+          try {
+            const response = await axios.get('/projects/getall')
+            setrPojectName(response.data)
+          } catch (error) {
+            console.error('Error fetching user:', error)
+          }
+        }
+        fetchUser()
+  }, []
+  )
 
   const login = localStorage.getItem('token')
   const hendle = (e) => {
@@ -90,25 +90,28 @@ export default function Home() {
           </div>
           <div className="mt-10">
             <h2 className="text-2xl font-bold text-white mb-4">Your Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-4">
               {projectName.map((project) => (
                 <div key={project._id} className="bg-white p-4 rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold">{project.name}</h3>
-                  <Link to={`/projects/${project._id}`} className='text-blue-500 '>View </Link>
+                  <div className="flex flex-row items-center justify-between  mb-2">
+                    <h3 className="text-2xl font-bold">{project.name}</h3>
+                    <p className='text-xs font-bold text-gray-600'>Users:- {project.users.length}</p>
+                  </div>
+                  <Link to={`/getAll/${project._id}`} className='text-blue-500 '>View </Link>
                 </div>
               ))}
-              </div>
-        </div>
+            </div>
+          </div>
         </main>
-  ) : (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-[#0f172a] relative overflow-hidden'>
-      <h1 className='text-4xl font-bold text-white'>Please Login or Register</h1><br />
-      <button className='text-xl font-bold  underline text-light-blue-200'>
-        <Link to={'/login'}>Login</Link>
-      </button>
-    </div>
-  )
-}
+      ) : (
+        <div className='flex flex-col items-center justify-center min-h-screen bg-[#0f172a] relative overflow-hidden'>
+          <h1 className='text-4xl font-bold text-white'>Please Login or Register</h1><br />
+          <button className='text-xl font-bold  underline text-light-blue-200'>
+            <Link to={'/login'}>Login</Link>
+          </button>
+        </div>
+      )
+      }
     </div >
   )
 }

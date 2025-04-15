@@ -9,7 +9,7 @@ const projectSchema = new mongoose.Schema({
         lowercase: [true, "Project name should be in lowercase and unique"],
     },
     users: [{
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }]
 });
