@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import { UserContext } from '../context/UserContext'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../config/axios'
 
 
@@ -21,6 +20,8 @@ export default function Home() {
         fetchUser()
   }, []
   )
+
+  const navigate = useNavigate()
 
   const login = localStorage.getItem('token')
   const hendle = (e) => {
@@ -90,14 +91,16 @@ export default function Home() {
           </div>
           <div className="mt-10">
             <h2 className="text-2xl font-bold text-white mb-4">Your Projects</h2>
-            <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
               {projectName.map((project) => (
-                <div key={project._id} className="bg-white p-4 rounded-lg shadow-md">
+                  <div key={project._id} className="bg-white p-4 rounded-lg shadow-md hover:scale-105 hover:bg-blue-gray-100  transition-transform duration-200"
+                  onClick={() => navigate(`/project`, {
+                    state: { project } 
+                  })}>
                   <div className="flex flex-row items-center justify-between  mb-2">
                     <h3 className="text-2xl font-bold">{project.name}</h3>
-                    <p className='text-xs font-bold text-gray-600'>Users:- {project.users.length}</p>
+                    <p className='text-sm font-bold text-blue-600/80'><i class="ri-group-3-fill text-base"></i> {project.users.length}</p>
                   </div>
-                  <Link to={`/getAll/${project._id}`} className='text-blue-500 '>View </Link>
                 </div>
               ))}
             </div>
