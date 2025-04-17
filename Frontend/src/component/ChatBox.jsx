@@ -14,7 +14,7 @@ export default function ChatBox() {
     };
 
     return (
-        <div className="flex flex-col h-full max-h-[670px] rounded-lg overflow-hidden">
+        <div className="flex flex-col justify-between h-full max-h-[670px] rounded-lg overflow-hidden">
             {/* Chat History */}
             <div className="chat flex flex-col gap-2 py-4 px-2 mb-2 rounded-lg overflow-hidden">
                 {messages.map((msg) => (
