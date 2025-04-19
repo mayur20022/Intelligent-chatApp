@@ -21,13 +21,12 @@ const Login = () => {
                 console.log('Login Successfull');
                 localStorage.setItem("token", res.data.token)
                 setUser(res.data.user);
+                
                 navigate('/')
             })
             .catch((err) => {
                 console.log(err);
             })
-        
-        console.log('Email:', email, 'Password:', password);
     };
 
 

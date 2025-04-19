@@ -20,8 +20,6 @@ router.post("/login",
 
 router.get("/getall",
     authuser,
-    body("email").isEmail().withMessage("Email must be a valid email address"),
-    body("password").isLength({ min: 4 }).withMessage("Password must be at  least 4 characters"),
     getAllUser)
     
 

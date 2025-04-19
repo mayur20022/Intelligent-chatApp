@@ -19,14 +19,15 @@ export const loginUser = async ({ email, password }) => {
     
     const user = await userModel.findOne({ email }).select("+password");
 
-    console.log(user);
     if (!user) {
         return res.status(404).json({ error: "Invalid credentials" });
     }
     const isMatch = await user.isValidPassword(password);
+    console.log(isMatch);
     if (!isMatch) {
         return res.status(401).json({ error: "Invalid credentials" });
     }
+    
     
     return user;
 }

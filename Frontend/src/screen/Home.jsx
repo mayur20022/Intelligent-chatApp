@@ -13,6 +13,7 @@ export default function Home() {
           try {
             const response = await axios.get('/projects/getall')
             setrPojectName(response.data)
+            
           } catch (error) {
             console.error('Error fetching user:', error)
           }
@@ -99,7 +100,7 @@ export default function Home() {
                   })}>
                   <div className="flex flex-row items-center justify-between  mb-2">
                     <h3 className="text-2xl font-bold">{project.name}</h3>
-                    <p className='text-sm font-bold text-blue-600/80'><i class="ri-group-3-fill text-base"></i> {project.users.length}</p>
+                    <p className='text-sm font-bold text-blue-600/80'><i className="ri-group-3-fill text-base"></i> {project.users.length}</p>
                   </div>
                 </div>
               ))}
