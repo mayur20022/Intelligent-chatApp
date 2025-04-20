@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-export default function UserAddModal({ isOpen, onClose, users, onAddUser }) {
+export default function UserAddModal({ isOpen, onClose, users, onAddUser, addCollaborators }) {
+    // console.log(projectId);
+
     if (!isOpen) return null;
 
     // Toggle state per user
@@ -17,6 +19,10 @@ export default function UserAddModal({ isOpen, onClose, users, onAddUser }) {
 
         // Notify parent
         onAddUser(userId, !isAdded); // you can change this logic as needed
+
+        
+
+       
     };
 
     return (
@@ -54,9 +60,11 @@ export default function UserAddModal({ isOpen, onClose, users, onAddUser }) {
                 </div>
                 <button
                     className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full"
-                    // onClick={
-                        
-                    //     }
+                    onClick={() => {
+                        addCollaborators();
+                        onClose();
+                    }}
+
                 >
                     Add collaborator
                 </button>
