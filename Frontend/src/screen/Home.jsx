@@ -15,12 +15,12 @@ export default function Home() {
             setrPojectName(response.data)
             
           } catch (error) {
+            navigate('/login')
             console.error('Error fetching user:', error)
           }
         }
         fetchUser()
-  }, []
-  )
+  }, [])
 
   const navigate = useNavigate()
 

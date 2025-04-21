@@ -13,7 +13,6 @@ export const createUsercontroller = async (req, res) => {
     try {
         const user = await createUser(req.body);
         const token = await user.generateJWT();
-        console.log(token);
         res.cookie("token", token); 
         delete user._doc.password;
         res.status(201).json({ user, token });
@@ -49,10 +48,8 @@ export const getAllUser = async (req, res) => {
     try {
         const loggedIn = await userModel.findOne({ email: req.user.email });
         const userId = loggedIn.id
-        // console.log(loggedIn);
         
         const users = await Allusers({userId});
-        // console.log(users);
         if (!users) {
             return res.status(404).json({ message: "No users found" });
         }

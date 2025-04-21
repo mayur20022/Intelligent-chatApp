@@ -23,7 +23,6 @@ export const loginUser = async ({ email, password }) => {
         return res.status(404).json({ error: "Invalid credentials" });
     }
     const isMatch = await user.isValidPassword(password);
-    console.log(isMatch);
     if (!isMatch) {
         return res.status(401).json({ error: "Invalid credentials" });
     }

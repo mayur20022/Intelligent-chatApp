@@ -76,7 +76,6 @@ export const getProject = async ({ id }) => {
             throw new Error('User ID required');
         }
         const project = await projectModel.findOne({_id: id}).populate('users', 'email name');
-        console.log(project);
         
         return project;
     } catch (error) {

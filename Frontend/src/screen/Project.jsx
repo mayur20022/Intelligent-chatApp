@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import UserAddModal from '../component/UserAddModal';
 import UserSidebar from '../component/UserSidebar';
 import ChatBox from '../component/ChatBox';
@@ -7,6 +7,7 @@ import axios from '../config/axios';
 import ViewUsersModal from '../component/ViewUsersModal';
 
 export default function Project() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,18 +15,23 @@ export default function Project() {
   const [isViewUsersModalOpen, setIsViewUsersModalOpen] = useState(false);
 
   const [availableUsers, setavailableUsers] = useState([]);
+  const projectId = location.state?.project._id;
+
 
 
   useEffect(() => {
+   
     axios.get('/users/getall')
       .then(response => {
         setavailableUsers(response.data);
       })
       .catch(error => {
+        navigate('/login')
         console.error(error);
       });
   }, []);
 
+  
   const addCollaborators = () => {
     axios.put('/projects/add-user', {
       projectId: projectId,
@@ -36,6 +42,7 @@ export default function Project() {
         // Handle success (e.g., close modal, show success message)
       })
       .catch(error => {
+        navigate('/login')
         console.error(error);
       });
   }
@@ -55,7 +62,6 @@ export default function Project() {
   };
 
 
-  const projectId = location.state.project._id;
 
 
 

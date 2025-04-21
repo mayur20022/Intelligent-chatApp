@@ -14,11 +14,15 @@ export const authuser = async (req, res, next) => {
             return res.status(401).json({ message: "Access denied. Token has been blacklisted" })
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+        if (!decoded) {
+            res.clearCookie("token");
+            return res.status(401).json({ message: "Access denied. Invalid token." });
+        }
         req.user = decoded;
         next();
     } catch (error) {
         console.log(error)
+        res.clearCookie("token");
         return res.status(401).json({ msg: "Not authorized" });
     }
 }

@@ -15,7 +15,6 @@ export const createProject = async (req, res) => {
         const project =await createProjectService({ name, userId });
         res.status(201).json(project);
     } catch (error) {
-        console.log(error);
         res.status(400).send(error.message);
     }
 }
@@ -36,7 +35,6 @@ export const allProjects = async (req, res) => {
         res.status(200).json(projects);        
 
     } catch (error) {
-        console.log(error);
         res.status(400).send(error.message);
         
     }
@@ -50,14 +48,11 @@ export const addUserToProject = async (req, res) => {
     try {
         const { projectId, userId } = req.body;
         const loggedIn = await userModel.findOne({ email: req.user.email });
-        console.log(loggedIn);
         
         const project = await addUserToProjectService({ projectId, userId, newUser: loggedIn._id });
-        console.log(project);
         
         res.status(200).json({project : project, message: "User added to project successfully"});
     } catch (error) {
-        console.log(error);
         res.status(400).send(error.message);
     }
 }
@@ -77,7 +72,6 @@ export const projectDetails = async (req, res) => {
 
         res.status(200).json(project);
     } catch (error) {
-        console.log(error);
         res.status(400).send(error.message);
         
     }

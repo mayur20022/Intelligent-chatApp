@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import axios from "../config/axios";setUsersList
+import React, { useEffect, useState } from "react";
+import axios from "../config/axios";
 
 
 
 const ViewUsersModal = ({ isOpen, onClose, projectId }) => {
     if (!isOpen) return null;
-    const [usersList, setUsersList] = React.useState([]);
+
+    const [usersList, setUsersList] = useState([]);
+
     useEffect(() => {
         axios.get(`/projects/get-project/${projectId}`)
             .then(response => {
