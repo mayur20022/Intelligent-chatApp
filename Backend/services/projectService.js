@@ -48,8 +48,7 @@ export const addUserToProjectService = async ({ projectId, userId, newUser }) =>
 
 
         const project = await projectModel.findOne({
-            _id: projectId,
-            users: [newUser]
+            _id: projectId
         });
         if (!project) {
             throw new Error('User not belong to project');

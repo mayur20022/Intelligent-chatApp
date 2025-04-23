@@ -20,24 +20,6 @@ const io = new Server(server, {
     transports: ['websocket'],
 })
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.join(socket.project._id.toString())
-
-    socket.on("project-message", (message) => {
-        console.log('message: ' + message);
-        socket.broadcast.to(socket.project._id.toString()).emit('project-message', message);
-    })
-    
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    })
-    socket.on('event', (e) => {
-        console.log('message: ' + e);
-        io.emit('message', e);
-    })
-})
 
 io.use(async(socket, next) => {
     try {
@@ -48,7 +30,8 @@ io.use(async(socket, next) => {
         if (!mongoose.Types.ObjectId.isValid(projectId)) {
             return next(new Error('Invalid project ID'));
         }
-         socket.project = await projectModel.findById(projectId);
+        socket.project = await projectModel.findById(projectId);
+        
         
         
         if (!token) {
@@ -69,6 +52,26 @@ io.use(async(socket, next) => {
     }
 });
 
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.join(socket.project._id.toString())
+
+    socket.on("project-message", (message) => {
+        console.log('message: ' + message);
+        socket.broadcast.to(socket.project._id.toString()).emit('project-message', message);
+    })
+
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    })
+    socket.on('event', (e) => {
+        console.log('message: ' + e);
+        io.emit('message', e);
+    })
+})
 
 
 server.listen(port, () => {

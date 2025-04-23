@@ -33,6 +33,8 @@ export default function Project() {
 
   
   const addCollaborators = () => {
+    console.log(selectedId);
+    
     axios.put('/projects/add-user', {
       projectId: projectId,
       userId: Array.from(selectedId),
@@ -42,7 +44,7 @@ export default function Project() {
         // Handle success (e.g., close modal, show success message)
       })
       .catch(error => {
-        navigate('/login')
+        // navigate('/login')
         console.error(error);
       });
   }

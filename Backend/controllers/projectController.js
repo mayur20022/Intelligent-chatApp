@@ -47,12 +47,14 @@ export const addUserToProject = async (req, res) => {
     }
     try {
         const { projectId, userId } = req.body;
+        
         const loggedIn = await userModel.findOne({ email: req.user.email });
         
         const project = await addUserToProjectService({ projectId, userId, newUser: loggedIn._id });
         
         res.status(200).json({project : project, message: "User added to project successfully"});
     } catch (error) {
+        console.log(error)
         res.status(400).send(error.message);
     }
 }
@@ -64,7 +66,6 @@ export const projectDetails = async (req, res) => {
     }
     try {
         const { id } = req.params;
-        // const loggedIn = await userModel.findOne({ email: req.user.email });
         const project = await getProject({id});
         if (!project) {
             return res.status(404).json({ message: "No projects found" });

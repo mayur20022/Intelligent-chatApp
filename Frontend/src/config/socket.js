@@ -2,31 +2,24 @@ import { io } from 'socket.io-client';
 
 let socketInstance = null;
 
-export const initialiseSocket = (projectID) => {
+export const initialiseSocket = (projectId) => {
     socketInstance = io(import.meta.env.VITE_API_URL, {
         transports: ['websocket'],
         auth: {
             token: localStorage.getItem('token'),
         },
         query: {
-            projectId: projectID,
+            projectId
         },
     });
 
     return socketInstance;
 };
 
-export const resivetSocket = (eventName, cb) => {
-    if (!socketInstance) {
-        console.error('Socket instance is not initialized');
-        return;
-    }
+export const recivetSocket = (eventName, cb) => {
     socketInstance.on(eventName, cb);
 };
 
 export const getSocket = (eventName, data) => {
-    if (!socketInstance) {
-        return console.error('Socket instance is not initialized');
-    }
     socketInstance.emit(eventName, data);
 };
