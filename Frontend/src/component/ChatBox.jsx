@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { initialiseSocket, resetSocket } from '../config/socket';
+import { initialiseSocket, resivetSocket } from '../config/socket';
 import { useLocation } from 'react-router-dom';
 
 export default function ChatBox() {
@@ -12,7 +12,7 @@ export default function ChatBox() {
 
     useEffect(() => {
        initialiseSocket(projectId);
-        resetSocket('project-message', (data) => {
+        resivetSocket('project-message', (data) => {
             console.log(data)
         })
 
@@ -27,7 +27,7 @@ export default function ChatBox() {
 
     const sendMessage = () => {
 
-        resetSocket('project-message', {
+        resivetSocket('project-message', {
             messages,
             sender: user._id
         });

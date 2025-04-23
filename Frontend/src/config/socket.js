@@ -16,7 +16,7 @@ export const initialiseSocket = (projectID) => {
     return socketInstance;
 };
 
-export const resetSocket = (eventName, cb) => {
+export const resivetSocket = (eventName, cb) => {
     if (!socketInstance) {
         console.error('Socket instance is not initialized');
         return;
