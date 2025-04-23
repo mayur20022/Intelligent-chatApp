@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { initialiseSocket, resetSocket } from '../config/socket';
 import { useLocation } from 'react-router-dom';
-import User from '../../../Backend/models/userModel.js';
-
 
 export default function ChatBox() {
     const location = useLocation();
